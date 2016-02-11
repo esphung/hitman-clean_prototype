@@ -38,11 +38,14 @@ protected:
 
 	/** The widget class we will use as our menu when the game starts. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Countdown Timer")
-	TSubclassOf<ACountdown> StartingCountdownClass;//
+	TSubclassOf<class ACountdown> StartingCountdownClass;//
 
 	/* Timer for level if any */
 	UPROPERTY()
 	ACountdown* CurrentCountdown;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Countdown Timer")
+	TSubclassOf<class ACountdown> DefaultCountdown;
 
 
 

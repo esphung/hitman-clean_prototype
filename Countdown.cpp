@@ -67,6 +67,10 @@ void ACountdown::CountdownHasFinished(){
 	UE_LOG(YourLog,Warning,TEXT("CountdownTime is Finished.  Game Over!"));
 }
 
+
+
+
+
 /*void ACountdown::CountdownHasFinished_Implementation(){
 	// do this in blueprints when countdown has finished
 }*/

@@ -1,4 +1,9 @@
-// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+/*
+FILENAME:
+AUTHOR:				Eric Scott Phung
+DATE:					2016.02.10
+PURPOSE:
+*/
 
 #include "TopDown_HitmanClean.h"
 #include "TopDown_HitmanCleanCharacter.h"
@@ -6,6 +11,22 @@
 ATopDown_HitmanCleanCharacter::ATopDown_HitmanCleanCharacter(){
 	// Set size for player capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+
+	// instance stamina variables
+	my_current_stamina_value =		100.0;
+	my_maximum_stamina_value =		100.0;
+	my_stamina_percentage =	(my_current_stamina_value/my_maximum_stamina_value);
+	// instance logic variables
+	is_seen_by_actor = 		false;
+	is_heard_by_actor = 	false;
+	is_caught_by_actor = 	false;
+	is_near_item =				false;
+	is_sprinting =				false;
+
+	// instance health variables
+	my_current_health_value =			100.0;
+	my_maximum_health_value =			100.0;
+	my_health_percentage = (my_current_health_value/my_maximum_health_value);
 
 	// Don't rotate character to camera direction
 	bUseControllerRotationPitch = false;
@@ -36,16 +57,7 @@ ATopDown_HitmanCleanCharacter::ATopDown_HitmanCleanCharacter(){
 	/*ATopDown_HitmanCleanCharacter* playerCharacterReference;
 	UCameraComponent* PlayerCameraRef;*/
 
-	// instance stamina variables
-	my_current_stamina_value =		100.0;
-	my_maximum_stamina_value =		100.0;
-	my_stamina_percentage =	(my_current_stamina_value/my_maximum_stamina_value);
 
-	is_seen_by_actor = 		false;
-	is_heard_by_actor = 	false;
-	is_caught_by_actor = 	false;
-	is_near_item =				false;
-	is_sprinting =				false;
 
 
 

@@ -5,6 +5,8 @@
 
 IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, TopDown_HitmanClean, "TopDown_HitmanClean" );
 
+
+
 //General Log
 DEFINE_LOG_CATEGORY(YourLog);
 

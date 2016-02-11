@@ -8,6 +8,8 @@
 #include "TopDown_HitmanCleanCharacter.h"
 #include "Countdown.h"
 
+
+
 ATopDown_HitmanCleanGameMode::ATopDown_HitmanCleanGameMode(){
 	// use our custom PlayerController class
 	PlayerControllerClass = ATopDown_HitmanCleanPlayerController::StaticClass();
@@ -22,12 +24,61 @@ ATopDown_HitmanCleanGameMode::ATopDown_HitmanCleanGameMode(){
 
 
 
+
+
+
 	//"This is a message to yourself during runtime!"
 	UE_LOG(YourLog,Warning,TEXT("GameMode object created."));
 
+}// end null constructor
+
+void ATopDown_HitmanCleanGameMode::BeginPlay(){
+	Super::BeginPlay();
+
+	// allows us to set user widgets that show up when the game starts
+	ChangeMenuWidget(StartingWidgetClass);
+	ChangeCountdownTimer(StartingCountdownClass);
+
+	// construct a timer
+	//levelTimerObject = new ACountdown();
+
 }
 
+void ATopDown_HitmanCleanGameMode::ChangeCountdownTimer(TSubclassOf<ACountdown> NewCountdownClass){
+	if (CurrentCountdown != nullptr){
+		//CurrentCountdown->RemoveFromViewport();
+		CurrentCountdown = nullptr;
+	}
+	if (NewCountdownClass != nullptr){
+		//CurrentCountdown = NewCountdownClass;
+		if (CurrentCountdown != nullptr){
+			//CurrentCountdown->AddToViewport();
+		}
+	}
+
+}
+
+
+
+
+void ATopDown_HitmanCleanGameMode::ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass){
+	if (CurrentWidget != nullptr){
+		CurrentWidget->RemoveFromViewport();
+		CurrentWidget = nullptr;
+	}
+	if (NewWidgetClass != nullptr){
+		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), NewWidgetClass);
+		if (CurrentWidget != nullptr){
+			CurrentWidget->AddToViewport();
+		}
+	}
+}
+
+
+
+
+// destructor
 ATopDown_HitmanCleanGameMode::~ATopDown_HitmanCleanGameMode(){
-//"This is a message to yourself during runtime!"
+	//"This is a message to yourself during runtime!"
 	UE_LOG(YourLog,Warning,TEXT("GameMode object destroyed."));
 }

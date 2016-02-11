@@ -1,4 +1,9 @@
-// Copyright 1998-2015 Epic Games, Inc. All Rights Reserved.
+/*
+FILENAME:
+AUTHOR:				Eric Scott Phung
+DATE:					2016.02.10
+PURPOSE:
+*/
 #pragma once
 #include "GameFramework/Character.h"
 #include "TopDown_HitmanCleanCharacter.generated.h"
@@ -59,6 +64,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="StaminaVariables")
 	float my_stamina_percentage;
 
+
 	// did another actor spot player
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="LogicVariables")
 	bool is_seen_by_actor;
@@ -78,6 +84,16 @@ public:
 	// is the player sprinting
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="LogicVariables")
 	bool is_sprinting;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="HealthVariables")
+	float my_current_health_value;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="HealthVariables")
+	float my_maximum_health_value;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="HealthVariables")
+	float my_health_percentage;
 
 
 	// event called when debug button is pressed

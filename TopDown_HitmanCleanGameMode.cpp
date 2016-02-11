@@ -26,7 +26,6 @@ ATopDown_HitmanCleanGameMode::ATopDown_HitmanCleanGameMode(){
 
 
 
-
 	//"This is a message to yourself during runtime!"
 	UE_LOG(YourLog,Warning,TEXT("GameMode object created."));
 
@@ -37,14 +36,19 @@ void ATopDown_HitmanCleanGameMode::BeginPlay(){
 
 	// allows us to set user widgets that show up when the game starts
 	ChangeMenuWidget(StartingWidgetClass);
-	ChangeCountdownTimer(StartingCountdownClass);
 
-	// construct a timer
-	//levelTimerObject = new ACountdown();
+	//ChangeCountdownTimer(StartingCountdownClass);
 
+	// spawn actors from here
+	UWorld* World = GetWorld();
+	if (World){
+		World->SpawnActor<ACountdown>();
+	}
 }
 
 void ATopDown_HitmanCleanGameMode::ChangeCountdownTimer(TSubclassOf<ACountdown> NewCountdownClass){
+
+
 	if (CurrentCountdown != nullptr){
 		//CurrentCountdown->RemoveFromViewport();
 		CurrentCountdown = nullptr;

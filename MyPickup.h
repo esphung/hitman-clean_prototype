@@ -23,4 +23,9 @@ public:
 	UFUNCTION()
 	virtual void OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	// Text to be rendered
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Visible Game Text")
+	UTextRenderComponent* InGameText;
+
+
 };

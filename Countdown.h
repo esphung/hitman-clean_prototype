@@ -9,6 +9,7 @@ UCLASS()
 class TOPDOWN_HITMANCLEAN_API ACountdown : public AActor{
 	GENERATED_BODY()
 
+
 public:
 	// Sets default values for this actor's properties
 	ACountdown();
@@ -23,13 +24,14 @@ public:
 
 	//===========================================
 
+
 	// countdown timer value in seconds
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="TimerVariables")
 	int32 CountdownTime;
 
-/*	// Text to be rendered with countdown
+	// Text to be rendered with countdown
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="TimerVariables")
-	UTextRenderComponent* CountdownText;*/
+	UTextRenderComponent* CountdownText;
 
 	// Function to update the level timers display
 	UFUNCTION(BlueprintCallable, Category="MyFunctions")
@@ -43,12 +45,7 @@ public:
 	UFUNCTION(BlueprintCallable,Category="MyFunctions")
 	void CountdownHasFinished();
 
-	/*UFUNCTION(BlueprintNativeEvent, Category="MyFunctions")
-	void CountdownHasFinished_Implementation();// editable in bp*/
-
-	// countdown timer handle supplied
 	FTimerHandle CountdownTimerHandle;
-
 
 };
 

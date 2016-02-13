@@ -24,6 +24,7 @@ class ATopDown_HitmanCleanCharacter : public ACharacter{
 
 public:
 	ATopDown_HitmanCleanCharacter();
+
 	// public reference to the player character
 	static ATopDown_HitmanCleanCharacter* playerCharacterReference;
 

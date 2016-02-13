@@ -8,12 +8,12 @@ ACountdown::ACountdown(){
  	// Set this actor to call Tick() every frame.  You can turn this off to improve per formance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-/*	// set default values for level countdown timer
+	// set default values for level countdown timer
 	CountdownText = CreateDefaultSubobject<UTextRenderComponent>(
 		TEXT("CountdownNumber"));
 	CountdownText->SetHorizontalAlignment(EHTA_Center);
 	CountdownText->SetWorldSize(150.0f);
-	RootComponent = CountdownText;*/
+	RootComponent = CountdownText;
 
 	// measured in seconds
 	CountdownTime = 300;// 5min
@@ -41,14 +41,12 @@ void ACountdown::Tick( float DeltaTime ){
 }
 
 void ACountdown::UpdateTimerDisplay(){
-	// CountdownText->SetText(FString::FromInt(FMath::Max(CountdownTime, 0)));
-	//"MyCharacter's Health is %d"
-	//"MyCharacter's Health is %d"
+	CountdownText->SetText(FString::FromInt(FMath::Max(CountdownTime, 0)));
 	UE_LOG(YourLog,Warning,TEXT("CountdownTime is %d"), CountdownTime);
 
-
-
 }
+
+
 
 
 void ACountdown::AdvanceTimer(){
@@ -63,14 +61,14 @@ void ACountdown::AdvanceTimer(){
 
 void ACountdown::CountdownHasFinished(){
 	//Change to a special readout
-	/*CountdownText->SetText(TEXT("Game Over!"));*/
+	CountdownText->SetText(TEXT("Game Over!"));
 	UE_LOG(YourLog,Warning,TEXT("CountdownTime is Finished.  Game Over!"));
 }
 
 
 
+/*
 
-
-/*void ACountdown::CountdownHasFinished_Implementation(){
+void ACountdown::CountdownHasFinished_Implementation(){
 	// do this in blueprints when countdown has finished
 }*/

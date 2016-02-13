@@ -5,6 +5,7 @@ DATE:					2016.02.10
 PURPOSE:
 */
 #pragma once
+#include "PickUp.h"
 #include "GameFramework/Character.h"
 #include "TopDown_HitmanCleanCharacter.generated.h"
 
@@ -51,6 +52,21 @@ public:
 	FVector CurrentVelocity;
 	bool bGrowing;
 
+	// current PickUp property
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "CurrentPickUp")
+	TSubclassOf<APickUp> StartingPickUp;
+
+	/* Current pick up PickUp held by the player */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "CurrentPickUp")
+	APickUp* CurrentPickUp;
+
+	// Event called when equipping a new pick up
+	UFUNCTION(BlueprintNativeEvent, Category = "PickUpSystem")
+	void EquipCurrentPickUpEvent(APickUp* NewPickUp);
+
+	// Event called when dropping an existing pick up
+	UFUNCTION(BlueprintNativeEvent, Category = "PickUpSystem")
+	void DropCurrentPickUpEvent();
 
 	// players current stamina amount as a float
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="StaminaVariables")
@@ -77,13 +93,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="LogicVariables")
 	bool is_caught_by_actor;
 
-	// is the player near an interactable item
+	// is the player near an interactable PickUp
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="LogicVariables")
 	bool is_near_item;
 
 	// is the player sprinting
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="LogicVariables")
 	bool is_sprinting;
+
+	// does the player have an PickUp?
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="LogicVariables")
+	bool is_holding_item;
+
+	// is player near bathtub interactable
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="LogicVariables")
+	bool is_near_bathtub;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="HealthVariables")
@@ -95,10 +119,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="HealthVariables")
 	float my_health_percentage;
 
+	// current PickUp string name
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="PickUp Variables")
+	FString current_item_name_string;
 
-	// event called when debug button is pressed
-	UFUNCTION(BlueprintCallable, Category="CustomFunctions")
-	void debugBtnPressed();
+
+	// event called when action button is pressed
+	UFUNCTION(BlueprintCallable, Category="InputFunctions")
+	void StartAction();
+
+	// event called when action button is released
+	UFUNCTION(BlueprintCallable, Category="InputFunctions")
+	void StopAction();
 
 
 	// Called when the game starts or when spawned
@@ -137,6 +169,11 @@ public:
 
 		/** Handler for when a touch input stops. */
 		void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
+
+
+
+
+
 
 
 };

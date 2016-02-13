@@ -42,12 +42,8 @@ void ATopDown_HitmanCleanGameMode::BeginPlay(){
 	ChangeMenuWidget(StartingWidgetClass);
 
 
-	// instantiate default timer
+/*	// instantiate default timer
 	DefaultCountdown = ACountdown::StaticClass();
-
-	ChangeCountdownTimer(StartingCountdownClass);
-
-
 
 	// spawn actors from here
 	UWorld* World = GetWorld();
@@ -55,29 +51,13 @@ void ATopDown_HitmanCleanGameMode::BeginPlay(){
 		//World->SpawnActor<ACountdown>();
 		World->SpawnActor<ACountdown>(DefaultCountdown);
 
-	}
+	}*/
+
 }// end begin play
 
 
 
 
-
-
-
-void ATopDown_HitmanCleanGameMode::ChangeCountdownTimer(TSubclassOf<ACountdown> NewCountdownClass){
-
-	if (CurrentCountdown != nullptr){
-		//CurrentCountdown->RemoveFromViewport();
-		CurrentCountdown = nullptr;
-	}
-	if (NewCountdownClass != nullptr){
-		//CurrentCountdown = NewCountdownClass;
-		if (CurrentCountdown != nullptr){
-			//CurrentCountdown->AddToViewport();
-		}
-	}
-
-}
 
 
 

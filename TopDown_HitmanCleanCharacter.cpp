@@ -23,6 +23,14 @@ ATopDown_HitmanCleanCharacter::ATopDown_HitmanCleanCharacter(){
 	is_near_item =				false;
 	is_sprinting =				false;
 
+	// blueprint editing began
+	is_holding_item = false;
+	is_near_bathtub = false;
+
+	// current item details
+	current_item_name_string = "";
+
+
 	// instance health variables
 	my_current_health_value =			100.0;
 	my_maximum_health_value =			100.0;
@@ -64,9 +72,11 @@ ATopDown_HitmanCleanCharacter::ATopDown_HitmanCleanCharacter(){
 	UE_LOG(YourLog,Warning,TEXT("Player Character object was cconstructed."));
 }// end null constructor definition
 
-// debug button event
-void ATopDown_HitmanCleanCharacter::debugBtnPressed(){
-	UE_LOG(YourLog,Warning,TEXT("DEBUG BTN PRESSED!"));
+// action button event
+void ATopDown_HitmanCleanCharacter::StartAction(){
+	UE_LOG(YourLog,Warning,TEXT("ACTION BTN PRESSED!"));
+}
+void ATopDown_HitmanCleanCharacter::StopAction(){
 }
 
 
@@ -150,8 +160,10 @@ void ATopDown_HitmanCleanCharacter::SetupPlayerInputComponent(class UInputCompon
 	InputComponent->BindTouch(IE_Pressed, this, &ATopDown_HitmanCleanCharacter::TouchStarted);
 	InputComponent->BindTouch(IE_Released, this, &ATopDown_HitmanCleanCharacter::TouchStopped);
 
+
 	// handle debug btn input
-	InputComponent->BindAction("DebugBtn", IE_Released, this, &ATopDown_HitmanCleanCharacter::debugBtnPressed);
+	InputComponent->BindAction("Action", IE_Pressed, this, &ATopDown_HitmanCleanCharacter::StartAction);
+	InputComponent->BindAction("Action", IE_Released, this, &ATopDown_HitmanCleanCharacter::StopAction);
 }
 
 
@@ -205,4 +217,25 @@ void ATopDown_HitmanCleanCharacter::MoveRight(float Value){
 	}
 }
 
+
+void ATopDown_HitmanCleanCharacter::EquipCurrentPickUpEvent_Implementation(APickUp* NewPickUp){
+	CurrentPickUp = NewPickUp;
+	current_item_name_string = CurrentPickUp->GetMyNameString();
+	is_holding_item = true;
+	is_near_item = false;
+
+}
+
+void ATopDown_HitmanCleanCharacter::DropCurrentPickUpEvent_Implementation(){
+	CurrentPickUp->Destroy();
+	is_holding_item = false;
+	current_item_name_string = "";
+	is_near_item = false;
+
+/*	CurrentPickUp = new APickUp();
+	current_item_name_string = CurrentPickUp->GetMyNameString();*/
+
+	//is_near_item = false;
+
+}
 

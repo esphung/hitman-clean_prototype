@@ -23,9 +23,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UMG Game")
 	void ChangeMenuWidget(TSubclassOf<UUserWidget> NewWidgetClass);
 
-	/* REmove current timer and create a new one */
-	UFUNCTION(BlueprintCallable, Category = "Countdown Game")
-	void ChangeCountdownTimer(TSubclassOf<ACountdown> NewCountdownClass);
 
 protected:
 	/** The widget class we will use as our menu when the game starts. */
@@ -36,16 +33,10 @@ protected:
 	UPROPERTY()
 	UUserWidget* CurrentWidget;
 
-	/** The widget class we will use as our menu when the game starts. */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Countdown Timer")
-	TSubclassOf<class ACountdown> StartingCountdownClass;//
 
-	/* Timer for level if any */
-	UPROPERTY()
-	ACountdown* CurrentCountdown;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Countdown Timer")
+/*	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Countdown Timer")
 	TSubclassOf<class ACountdown> DefaultCountdown;
+*/
 
 
 

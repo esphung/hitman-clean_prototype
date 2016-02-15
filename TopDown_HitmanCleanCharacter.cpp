@@ -8,6 +8,7 @@ PURPOSE:
 #include "TopDown_HitmanClean.h"
 #include "TopDown_HitmanCleanCharacter.h"
 
+
 ATopDown_HitmanCleanCharacter::ATopDown_HitmanCleanCharacter(){
 	// Set size for player capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -69,7 +70,7 @@ ATopDown_HitmanCleanCharacter::ATopDown_HitmanCleanCharacter(){
 
 
 
-	UE_LOG(YourLog,Warning,TEXT("Player Character object was cconstructed."));
+	UE_LOG(YourLog,Warning,TEXT("Player Character object was constructed."));
 }// end null constructor definition
 
 // action button event
@@ -220,10 +221,9 @@ void ATopDown_HitmanCleanCharacter::MoveRight(float Value){
 
 void ATopDown_HitmanCleanCharacter::EquipCurrentPickUpEvent_Implementation(APickUp* NewPickUp){
 	CurrentPickUp = NewPickUp;
-	current_item_name_string = CurrentPickUp->GetMyNameString();
+	current_item_name_string = NewPickUp->GetMyNameString();
 	is_holding_item = true;
 	is_near_item = false;
-
 }
 
 void ATopDown_HitmanCleanCharacter::DropCurrentPickUpEvent_Implementation(){
@@ -232,10 +232,17 @@ void ATopDown_HitmanCleanCharacter::DropCurrentPickUpEvent_Implementation(){
 	current_item_name_string = "";
 	is_near_item = false;
 
-/*	CurrentPickUp = new APickUp();
-	current_item_name_string = CurrentPickUp->GetMyNameString();*/
-
-	//is_near_item = false;
-
 }
+
+bool ATopDown_HitmanCleanCharacter::GetHasCurrentItem_Implementation(){
+	if (is_holding_item == true){
+		/* code */
+		return true;
+	} else {
+		return false;
+	}
+	return false;
+}
+
+
 

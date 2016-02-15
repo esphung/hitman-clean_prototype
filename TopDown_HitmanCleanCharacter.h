@@ -26,7 +26,7 @@ public:
 	ATopDown_HitmanCleanCharacter();
 
 	// public reference to the player character
-	static ATopDown_HitmanCleanCharacter* playerCharacterReference;
+	/*static ATopDown_HitmanCleanCharacter* playerCharacterReference;*/
 
 	/** Returns TopDownCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
@@ -53,21 +53,6 @@ public:
 	FVector CurrentVelocity;
 	bool bGrowing;
 
-	// current PickUp property
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "CurrentPickUp")
-	TSubclassOf<APickUp> StartingPickUp;
-
-	/* Current pick up PickUp held by the player */
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "CurrentPickUp")
-	APickUp* CurrentPickUp;
-
-	// Event called when equipping a new pick up
-	UFUNCTION(BlueprintNativeEvent, Category = "PickUpSystem")
-	void EquipCurrentPickUpEvent(APickUp* NewPickUp);
-
-	// Event called when dropping an existing pick up
-	UFUNCTION(BlueprintNativeEvent, Category = "PickUpSystem")
-	void DropCurrentPickUpEvent();
 
 	// players current stamina amount as a float
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="StaminaVariables")
@@ -142,6 +127,46 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+
+
+
+
+
+
+
+
+
+/*	// current PickUp property
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "CurrentPickUp")
+	TSubclassOf<APickUp> StartingPickUp;*/
+
+	/* Current pick up PickUp held by the player */
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "CurrentPickUp")
+	APickUp* CurrentPickUp;
+
+	// Event called when equipping a new pick up
+	UFUNCTION(BlueprintNativeEvent, Category = "PickUpSystem")
+	void EquipCurrentPickUpEvent(APickUp* NewPickUp);
+
+	// Event called when dropping an existing pick up
+	UFUNCTION(BlueprintNativeEvent, Category = "PickUpSystem")
+	void DropCurrentPickUpEvent();
+
+	// get current item
+	UFUNCTION(BlueprintNativeEvent,Category="ItemSystem")
+	bool GetHasCurrentItem();
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	// third person input for development and debugging

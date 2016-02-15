@@ -5,58 +5,61 @@
 #include "TopDown_HitmanCleanCharacter.h"
 #include "PickUp.h"
 #include "GameFramework/Actor.h"
-#include "Deposit.generated.h"
+#include "DepositBase.generated.h"
 
 UCLASS()
-class TOPDOWN_HITMANCLEAN_API ADeposit : public AActor{
+class TOPDOWN_HITMANCLEAN_API ADepositBase : public AActor{
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this actor's properties
-	ADeposit();
+	ADepositBase();
 
-	// Text to be rendered with deposit
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="TimerVariables")
-	UTextRenderComponent* VisibleDepositText;
+/*	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
+	ATopDown_HitmanCleanCharacter* OtherCharacter;*/
 
-	// deposit instance's name
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	// Text to be rendered with depositBase
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="DepositBaseVariables")
+	UTextRenderComponent* VisibleDepositBaseText;
+
+	// depositBase instance's name
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	FString my_name_string;
 
 	// string used to clear out text displayed
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	FString clear_text_string;
 
 	// current text string displayed
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	FString current_text_string;
 
 	// text when interacting with player
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	FString interaction_text_string;
 
 	// text shown when player needs to find an item
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	FString find_item_text_string;
 
-	// text shown when deposit is full
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	// text shown when depositBase is full
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	FString deposit_full_text_string;
 
-	// logic value when deposit has been found by the player
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	// logic value when depositBase has been found by the player
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	bool is_found_by_player;
 
-	// current amount of items the deposit is holding
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	// current amount of items the depositBase is holding
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	int32 my_current_items_value;
 
-	// maximum amount of items the deposit can hold
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	// maximum amount of items the depositBase can hold
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	int32 my_maximum_items_value;
 
-	// checks if deposit is full
-	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositVariables")
+	// checks if depositBase is full
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="DepositBaseVariables")
 	bool is_deposit_full;
 
 
@@ -67,7 +70,7 @@ public:
 
 	/* static mesh component */
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="PickUpMesh")
-	UStaticMeshComponent* DepositMesh;
+	UStaticMeshComponent* DepositBaseMesh;
 
 
 
@@ -90,12 +93,10 @@ public:
 	// Called every frame
 	virtual void Tick( float DeltaSeconds ) override;
 
-	// chek if deposit is full
-	UFUNCTION(BlueprintNativeEvent,Category="DepositFunctions")
-	bool CheckDeposit();
 
-	// deposit an item
-	UFUNCTION(BlueprintNativeEvent,Category="DepositFunctions")
-	void DepositCurrentItem();
+
+	// depositBase an item
+	UFUNCTION(BlueprintNativeEvent,Category="DepositBaseFunctions")
+	bool DepositCurrentItem();
 
 };

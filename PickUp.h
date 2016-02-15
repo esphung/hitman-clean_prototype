@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "TopDown_HitmanCleanCharacter.h"
 #include "GameFramework/Actor.h"
 #include "PickUp.generated.h"
 
@@ -16,7 +17,6 @@ public:
 	/* Give the pick up item a name */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Item Name")
 	FString ItemNameText;
-
 
 	// pick up logic variables
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="PickUpLogic")
@@ -53,6 +53,33 @@ public:
 
 	UFUNCTION(BlueprintCallable,Category="ItemInteraction")
 	FString GetMyNameString();
+
+
+	/*
+		Attaches the PickUp to the pawn and sets Current PickUp to this PickUp.
+		@param PickUpOwner: Is the pawn that the PickUp belongs to.
+		@param SkeletalCompName: The name of the component we want.
+		@return bool: True if attached the PickUp to pawn was successfull.
+	*/
+	UFUNCTION()
+	virtual bool AttachPickUpToPawn(APawn* PickUpOwner, FString SkeletalCompName);
+
+	/*
+		Returns the Skeletal Component for the Pawn "Owner" of the PickUp.
+		@return USkeletalMeshComponent* or NULL if not found.
+	*/
+	UFUNCTION()
+	virtual USkeletalMeshComponent* GetPawnSkeletalComp(FString ComponentName);
+
+	/* The pawn that the PickUps belong to. (NULL if on the ground.) */
+	UPROPERTY()
+	APawn* OwningPawn;
+
+	// ....
+
+
+
+
 
 
 

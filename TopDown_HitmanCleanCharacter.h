@@ -5,6 +5,7 @@ DATE:					2016.02.10
 PURPOSE:
 */
 #pragma once
+#include "DepositBase.h"
 #include "PickUp.h"
 #include "GameFramework/Character.h"
 #include "TopDown_HitmanCleanCharacter.generated.h"
@@ -20,6 +21,8 @@ class ATopDown_HitmanCleanCharacter : public ACharacter{
 	/** Camera boom positioning the camera above the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
+
+
 
 
 public:
@@ -43,6 +46,8 @@ public:
 
 
 
+
+
 	//Input functions
 	void Move_XAxis(float AxisValue);
 	void Move_YAxis(float AxisValue);
@@ -53,6 +58,9 @@ public:
 	FVector CurrentVelocity;
 	bool bGrowing;
 
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Stains")
+    bool is_overlapping_a_stain;
 
 	// players current stamina amount as a float
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="StaminaVariables")
@@ -93,7 +101,7 @@ public:
 
 	// is player near bathtub interactable
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="LogicVariables")
-	bool is_near_bathtub;
+	bool is_near_deposit;
 
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="HealthVariables")
@@ -130,9 +138,11 @@ public:
 
 
 
+    
 
-
-
+    // mesh for pick up objects
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=SkelMeshComponents)
+    UStaticMeshComponent* Right_Hand_Object_Slot;
 
 
 
@@ -140,9 +150,14 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "CurrentPickUp")
 	TSubclassOf<APickUp> StartingPickUp;*/
 
+
+
+    
 	/* Current pick up PickUp held by the player */
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "CurrentPickUp")
 	APickUp* CurrentPickUp;
+
+
 
 	// Event called when equipping a new pick up
 	UFUNCTION(BlueprintNativeEvent, Category = "PickUpSystem")

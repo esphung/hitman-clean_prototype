@@ -91,15 +91,19 @@ void ADepositBase::OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComp
 
 	ATopDown_HitmanCleanCharacter* OtherCharacter = Cast<ATopDown_HitmanCleanCharacter>(OtherActor);
 
+	OtherCharacter->is_near_deposit = true;
+
+
+
 	// CRITICAL SECTION!!!
-	if (OtherCharacter->is_holding_item == true){
+	if (true){
 		// if char has an item
 		if (my_current_items_value < my_maximum_items_value){
-
-			if (DepositCurrentItem() == true){
+			if (OtherCharacter->is_holding_item == true && DepositCurrentItem() == true){
 				OtherCharacter->DropCurrentPickUpEvent();
 			}
 		} else {
+            is_deposit_full = true;
 			current_text_string = deposit_full_text_string;
 			UpdateTextDisplay();
 		}
@@ -116,6 +120,11 @@ void ADepositBase::OnOverlapEnd(class AActor* OtherActor, class UPrimitiveCompon
 		// OtherActor is the actor that triggered the event. Check that is not ourself
 	if( (OtherActor == nullptr) || (OtherActor == this) || (OtherComp == nullptr) )
 		return;
+
+	ATopDown_HitmanCleanCharacter* OtherCharacter = Cast<ATopDown_HitmanCleanCharacter>(OtherActor);
+
+	OtherCharacter->is_near_deposit = false;
+    
 
 	current_text_string = clear_text_string;
 	UpdateTextDisplay();
@@ -136,6 +145,7 @@ bool ADepositBase::DepositCurrentItem_Implementation(){
 		UpdateTextDisplay();
 		return true;
 	} else {
+        is_deposit_full = true;
 		return false;
 	}
 

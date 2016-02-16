@@ -52,45 +52,28 @@ APickUp::APickUp(){
 
 
 
-
-
-
-
-void APickUp::OnOverlapEnd(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex){
-		// OtherActor is the actor that triggered the event. Check that is not ourself
-	if( (OtherActor == nullptr) || (OtherActor == this) || (OtherComp == nullptr) )
-		return;
-
-/*
-	// what to do
-	is_near_player = false;
-
-	if (is_near_player == false){
-		// show bool value
-		UE_LOG(YourLog, Warning, TEXT("FALSE"));
-		UE_LOG(YourLog,Warning,TEXT("%s is not close enough to this pick up item"), *OtherActor->GetName());
-	}
-*/
-}
-
-void APickUp::PickedUp(){
-	/* Has no default behavior when picked up */
-	SetActorEnableCollision(false);
-	is_near_player = false;
-	isActive = false;
-
-}
-
-FString APickUp::GetMyNameString(){
-	// return this items name
-	return ItemNameText;
-}
-
-
 void APickUp::OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult){
 		// OtherActor is the actor that triggered the event. Check that is not ourself
 	if( (OtherActor == nullptr) || (OtherActor == this) || (OtherComp == nullptr) )
 		return;
+
+	ATopDown_HitmanCleanCharacter* OtherCharacter = Cast<ATopDown_HitmanCleanCharacter>(OtherActor);
+
+	if (OtherCharacter->is_holding_item == true || OtherCharacter->is_holding_item != false)
+    {
+		UE_LOG(YourLog, Warning, TEXT("TRUE"));
+        return;
+	}
+    
+    if (OtherCharacter->is_holding_item == false)
+    {
+        //this->AttachRootComponentToActor(OtherCharacter->Right_Hand_Object_Slot);
+        //this->AttachRootComponentToActor(OtherCharacter);
+        this->AttachPickUpToPawn(OtherCharacter, "pick_up_001");
+        OtherCharacter->EquipCurrentPickUpEvent(this);
+        return;
+		UE_LOG(YourLog, Warning, TEXT("FALSE"));
+	}
 
 /*	// what to do if actor overlaps pick up item
 	is_near_player = true;
@@ -119,6 +102,43 @@ void APickUp::OnOverlapBegin(class AActor* OtherActor, class UPrimitiveComponent
 
 
 
+
+void APickUp::OnOverlapEnd(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex){
+		// OtherActor is the actor that triggered the event. Check that is not ourself
+	if( (OtherActor == nullptr) || (OtherActor == this) || (OtherComp == nullptr) )
+		return;
+
+
+
+/*
+	// what to do
+	is_near_player = false;
+
+	if (is_near_player == false){
+		// show bool value
+		UE_LOG(YourLog, Warning, TEXT("FALSE"));
+		UE_LOG(YourLog,Warning,TEXT("%s is not close enough to this pick up item"), *OtherActor->GetName());
+	}
+*/
+}
+
+void APickUp::PickedUp(){
+	/* Has no default behavior when picked up */
+	SetActorEnableCollision(false);
+	is_near_player = false;
+	isActive = false;
+
+}
+
+FString APickUp::GetMyNameString(){
+	// return this items name
+	return ItemNameText;
+}
+
+
+
+
+
 bool APickUp::AttachPickUpToPawn(APawn* PickUpOwner, FString SkeletalCompName){
 	OwningPawn = PickUpOwner; // Sets the owner of this PickUp. (Note: OwningPawn  is a APawn* member in my PickUp class.)
 	SetOwner(OwningPawn); // AActor::SetOwner(APawn*);
@@ -129,7 +149,7 @@ bool APickUp::AttachPickUpToPawn(APawn* PickUpOwner, FString SkeletalCompName){
 	if (ArmMesh) // Check to see if our rig Skeletal Mesh Component is good.
 	{
 	// AActor::AttachRootComponentTo(..)
-		AttachRootComponentTo(PickUpMesh, FName(TEXT("pick_up_001")), EAttachLocation::SnapToTarget); // Attach the root component of our PickUp actor to the ArmMesh at the location of the socket.
+		AttachRootComponentTo(ArmMesh, FName(TEXT("PickUpMesh")), EAttachLocation::SnapToTarget); // Attach the root component of our PickUp actor to the ArmMesh at the location of the socket.
 		return true; // Note: We can only assume it is attached, since epic did not provide a return value.
 	}
 	else

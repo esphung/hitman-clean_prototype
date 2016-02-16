@@ -12,6 +12,8 @@ PURPOSE:
 ATopDown_HitmanCleanCharacter::ATopDown_HitmanCleanCharacter(){
 	// Set size for player capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+    
+    is_overlapping_a_stain = false;
 
 	// instance stamina variables
 	my_current_stamina_value =		100.0;
@@ -26,7 +28,7 @@ ATopDown_HitmanCleanCharacter::ATopDown_HitmanCleanCharacter(){
 
 	// blueprint editing began
 	is_holding_item = false;
-	is_near_bathtub = false;
+	is_near_deposit = false;
 
 	// current item details
 	current_item_name_string = "";
@@ -60,12 +62,18 @@ ATopDown_HitmanCleanCharacter::ATopDown_HitmanCleanCharacter(){
 	TopDownCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
 	TopDownCameraComponent->AttachTo(CameraBoom, USpringArmComponent::SocketName);
 	TopDownCameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+    
+    
+/*    Right_Hand_Object_Slot = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("CurrentItemMeshComponent"));
+    Right_Hand_Object_Slot->AttachTo(this->GetMesh());*/
+
+
+    
 
 
 	// get reference to player's controlled character
 	/*ATopDown_HitmanCleanCharacter* playerCharacterReference;
 	UCameraComponent* PlayerCameraRef;*/
-
 
 
 
